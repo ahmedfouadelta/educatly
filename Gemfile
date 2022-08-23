@@ -35,6 +35,8 @@ gem 'unicorn'
 gem 'sidekiq'
 gem 'devise'
 gem 'activeadmin'
+gem 'carrierwave'
+gem "rmagick"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
