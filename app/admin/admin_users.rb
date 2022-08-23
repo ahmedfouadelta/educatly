@@ -1,5 +1,7 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
+  actions :index, :show, :new, :create, :update, :edit
+
   index do
     selectable_column
     id_column
@@ -24,4 +26,21 @@ ActiveAdmin.register AdminUser do
     f.actions
   end
 
+  controller do
+    skip_before_action :authenticate_active_admin_user, only: [:new, :create]
+
+    def create
+      @admin_user = AdminUser.new( admin_user_params )
+      @admin_user.save
+      if @admin_user.valid?
+        redirect_to new_admin_user_session_url, notice: "User is created successfully.. please login here!"
+      end
+    end
+
+    private
+
+    def admin_user_params
+      params.require(:admin_user).permit(:email, :password)
+    end
+  end
 end
