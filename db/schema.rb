@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220823180214) do
+ActiveRecord::Schema.define(version: 20220823190255) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "namespace"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20220823180214) do
     t.string   "name"
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name",                     null: false
+    t.float    "price",         limit: 24, null: false
+    t.string   "description",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "admin_user_id"
+    t.index ["admin_user_id"], name: "index_products_on_admin_user_id", using: :btree
+    t.index ["name"], name: "index_products_on_name", unique: true, using: :btree
   end
 
 end
